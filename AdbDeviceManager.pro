@@ -13,6 +13,7 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
+    ui_mainwindow.h \
     AdbClient.h \
     universalmethodhandler.h
 
