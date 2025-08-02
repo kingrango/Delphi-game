@@ -11,10 +11,14 @@ qt6_standard_project_setup()
 set(SOURCES
     main.cpp
     mainwindow.cpp
+    AdbClient.cpp
+    universalmethodhandler.cpp
 )
 
 set(HEADERS
     mainwindow.h
+    AdbClient.h
+    universalmethodhandler.h
 )
 
 qt6_add_executable(AdbDeviceManager ${SOURCES} ${HEADERS})

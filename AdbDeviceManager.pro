@@ -7,10 +7,14 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    AdbClient.cpp \
+    universalmethodhandler.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    AdbClient.h \
+    universalmethodhandler.h
 
 # Create data directory
 data.path = $$OUT_PWD/data

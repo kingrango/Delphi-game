@@ -46,23 +46,36 @@ make
 
 ```
 .
-├── main.cpp              # Application entry point
-├── mainwindow.h          # Main window header
-├── mainwindow.cpp        # Main window implementation
-├── CMakeLists.txt        # CMake build file
-├── AdbDeviceManager.pro  # qmake project file
-├── data/                 # Directory for APK files
-│   └── adm.apk          # (Place your APK here)
-└── README.md            # This file
+├── main.cpp                    # Application entry point
+├── mainwindow.h                # Main window header
+├── mainwindow.cpp              # Main window implementation
+├── AdbClient.h                 # ADB client interface
+├── AdbClient.cpp               # ADB client implementation
+├── universalmethodhandler.h    # Universal method handler header
+├── universalmethodhandler.cpp  # Universal method handler implementation
+├── CMakeLists.txt              # CMake build file
+├── AdbDeviceManager.pro        # qmake project file
+├── data/                       # Directory for APK files
+│   └── adm.apk                # (Place your APK here)
+└── README.md                  # This file
 ```
+
+## Architecture
+
+The application follows your existing pattern with:
+
+- **MainWindow**: UI management and user interaction
+- **AdbClient**: Core ADB functionality and device communication
+- **UniversalMethodHandler**: State machine for the universal method process
+- **State Machine Pattern**: Clean step-by-step execution with progress tracking
 
 ## Key Differences from C# Version
 
-- **Threading**: Uses Qt's QThread and worker objects for async operations
-- **UI**: Native Qt widgets instead of Windows Forms
-- **Process Execution**: QProcess instead of .NET Process class
-- **File Paths**: Qt's cross-platform path handling
-- **Logging**: Rich text with colors in QTextEdit
+- **Architecture**: Clean separation with handler classes and state machines
+- **Threading**: Uses Qt's QTimer for async operations without blocking UI
+- **Process Execution**: QProcess for all ADB commands
+- **Error Handling**: Comprehensive error checking at each step
+- **Progress Tracking**: Visual feedback with detailed logging
 
 ## Security Note
 

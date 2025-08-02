@@ -2,26 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QPushButton>
 #include <QProgressBar>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QMessageBox>
-#include <QProcess>
-#include <QTimer>
-#include <QThread>
-#include <QMutex>
-#include <QApplication>
-#include <QDir>
-#include <QStandardPaths>
-#include <QColor>
-#include <QTextCursor>
-#include <QTextCharFormat>
-#include <QDebug>
 
-class AdbWorker;
+class AdbClient;
+class UniversalMethodHandler;
 
 class MainWindow : public QMainWindow
 {
@@ -32,65 +21,23 @@ public:
     ~MainWindow();
 
 private slots:
-    void onButton15Clicked();
-    void onAdbCheckFinished(bool success);
-    void onDeviceSearchFinished(bool found);
-    void onApkInstallFinished(bool success);
-    void onProcessFinished();
+    void onUniversalMethodClicked();
 
 private:
     // UI Components
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
-    QTextEdit *logTextEdit;
-    QPushButton *button15;
+    QPlainTextEdit *logTextEdit;
+    QPushButton *universalMethodButton;
     QProgressBar *progressBar;
     QLabel *statusLabel;
 
-    // ADB related
-    QProcess *adbProcess;
-    QString adbDeviceSerial;
-    QString dataFolderPath;
+    // Core components
+    AdbClient *m_adbClient;
+    UniversalMethodHandler *m_universalHandler;
     
     // Helper methods
     void setupUI();
-    void logs(const QString &message, const QColor &color = Qt::white);
-    bool checkRunAdb();
-    bool findAdbDevice();
-    void waitForDevices();
-    void installApk(const QString &apkFileName, const QString &command);
-    void executeAdbCommand(const QString &command);
-    QString getApplicationPath();
-    void resetProgress();
-    
-    // Async operations
-    void startAdbCheck();
-    void startDeviceSearch();
-    void startApkInstall();
-    void startDeviceAdminSetup();
-};
-
-// Worker class for background operations
-class AdbWorker : public QObject
-{
-    Q_OBJECT
-
-public:
-    enum OperationType {
-        CheckAdb,
-        SearchDevices,
-        InstallApk,
-        SetupAdmin
-    };
-
-public slots:
-    void performOperation(OperationType type, const QString &param1 = "", const QString &param2 = "");
-
-signals:
-    void operationFinished(bool success, const QString &result = "");
-
-private:
-    QString executeCommand(const QString &command);
 };
 
 #endif // MAINWINDOW_H
